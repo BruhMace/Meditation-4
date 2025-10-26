@@ -57,13 +57,7 @@ function upTuning() {
   const semitone = Math.pow(2, 1/12); 
   for (const note in guitarStrings) {
     guitarStrings[note] *= semitone;
-  }}
-  
-function RandomTuning() {
-  const semitone = Math.pow(2, 1/12); 
-  for (const note in guitarStrings) {
-    guitarStrings[note] *= semitone;
-  }}
+  }}  
 
 nn.create('button').content('E').addTo('body').on('click', playE2);
 nn.create('button').content('A').addTo('body').on('click', playA2);
