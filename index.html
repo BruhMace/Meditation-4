@@ -1,0 +1,88 @@
+<h1>Meditation #4</h1>
+<h2>by Maceo</h2>
+For this meditation, I was initially stumped because creating a new tuning system that actually sounded good seemed very difficult when I was experimenting. Eventually, I started thinking about tuning systems in my own life and realized I could draw inspiration from the guitar tuners I use. That’s what I decided to recreate for my meditation.
+<p>
+  
+</p>
+I started by looking up the frequeuncies for each open string in standard tuning on the guitar and made a list. From there, I created play functions and then made functions to both increase or decrease the strings by one semitone. This project ended up being surprisingly practical as I tested the frequencies against my actual guitar in standard tuning and drop D (only low e string) tuning and they were perfectly in tune. Another thing I enjoyed playing around with was tuning down 20 semitones and using the E, A, and D "strings" to create bass melodies.
+<p>
+</p>
+
+<body style="background: white"></body>
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+<script src="https://unpkg.com/tone"></script>
+<script src="https://algorithmicmusic.online/js/viz-helpers.js"></script>
+<script>
+    
+/* global nn, Tone, viz */
+
+const synth = new Tone.Synth().toDestination();
+
+let guitarStrings = {
+  E2: 82.41,
+  A2: 110.00,
+  D3: 146.83,
+  G3: 196.00,
+  B3: 246.94,
+  E4: 329.63
+};
+
+function playE2() {
+  synth.triggerAttackRelease(guitarStrings.E2, "2n");
+}
+function playA2() {
+  synth.triggerAttackRelease(guitarStrings.A2, "2n");
+}
+function playD3() {
+  synth.triggerAttackRelease(guitarStrings.D3, "2n");
+}
+function playG3() {
+  synth.triggerAttackRelease(guitarStrings.G3, "2n");
+}
+function playB3() {
+  synth.triggerAttackRelease(guitarStrings.B3, "2n");
+}
+function playE4() {
+  synth.triggerAttackRelease(guitarStrings.E4, "2n");
+}
+
+// drop tuning (1 semitone down)
+function dropTuning() {
+  const semitone = Math.pow(2, -1/12); 
+  for (const note in guitarStrings) {
+    guitarStrings[note] *= semitone;
+  }}
+  
+function upTuning() {
+  const semitone = Math.pow(2, 1/12); 
+  for (const note in guitarStrings) {
+    guitarStrings[note] *= semitone;
+  }}
+  
+function RandomTuning() {
+  const semitone = Math.pow(2, 1/12); 
+  for (const note in guitarStrings) {
+    guitarStrings[note] *= semitone;
+  }}
+
+nn.create('button').content('E').addTo('body').on('click', playE2);
+nn.create('button').content('A').addTo('body').on('click', playA2);
+nn.create('button').content('D').addTo('body').on('click', playD3);
+nn.create('button').content('G').addTo('body').on('click', playG3);
+nn.create('button').content('B').addTo('body').on('click', playB3);
+nn.create('button').content('E').addTo('body').on('click', playE4);
+
+const spec = viz.createSpectrum({ range: [20, 1700] })
+synth.connect(spec)
+  
+nn.create('button')
+  .content('Tune Down')
+  .addTo('body')
+  .on('click', dropTuning);
+  
+nn.create('button')
+  .content('Tune Up')
+  .addTo('body')
+  .on('click', upTuning);
+
+</script>
